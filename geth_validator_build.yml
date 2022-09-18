@@ -1,0 +1,5 @@
+---
+hosts: geth_node
+roles: 
+
+...
