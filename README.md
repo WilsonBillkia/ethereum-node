@@ -19,4 +19,4 @@ NB For validators, dont forget to put your address in the lighthousevalidator.se
 
 4. Run `ansible-playbook geth_validator_build.yml`
 
-The node should perform all the steps necessary to build the geth node and enable the geth, beacon and validator services. For non-validator nodes just leave out any steps which reference the validator from the main playbook.
+The playbook should perform all the steps necessary to build the geth node and enable the geth, beacon and validator services. For non-validator nodes just leave out any steps which reference the validator from the main playbook.
