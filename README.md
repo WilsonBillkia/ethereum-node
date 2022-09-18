@@ -7,7 +7,7 @@ NB This is configured for goerli - for other networks change the flag in the get
 
 1. Add the IP addresses of the hosts you want to build to your ansible inventory  file (default: /etc/ansible/hosts) under a group named geth_node 
 
-2. Run the following ''' git clone https://github.com/WilsonBillkia/ethereum-node/ && cd ethereum-node '''
+2. Run the following 'git clone https://github.com/WilsonBillkia/ethereum-node/ && cd ethereum-node'
 
 3. Download the latest Lighthouse exectuable from here https://github.com/sigp/lighthouse/releases and save it as lighthouse_exe under the files directory. 
 
