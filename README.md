@@ -8,7 +8,7 @@ NB This is configured for goerli - for other networks change the flag in the get
 
 NB For validators, DONT FORGET to put your address in the lighthousevalidator.service file where marked. 
 
-(This guide assumes you have ansible installed on a management host, are running the following steps from it, and have an adequately specified linux host with ssh server configured as the target for the build) 
+(This guide assumes you have ansible installed on a management host, are running the following steps from it, and have an adequately specified linux host with ssh server configured and ready to be the target for the build) 
 
 # Instructions
 
