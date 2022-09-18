@@ -1,4 +1,4 @@
-# ethereum-node
+# idempotent ansible ethereum-node
 
 This is an ansible script which turns any suitably spec'ed linux box into either an execution/consensus geth node or a full validator node.
 
