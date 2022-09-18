@@ -1,6 +1,7 @@
 # ethereum-node
 An idempotent ansible script to build an ethereum role on Linux.
-This is just a compilation of the steps published by remy here https://github.com/remyroy/ethstaker/blob/main/merge-goerli-prater.md
+
+This is just a compilation of the steps published here https://github.com/remyroy/ethstaker/blob/main/merge-goerli-prater.md
 
 NB This is configured for goerli - for other networks change the flag in the geth.service file in this repo.
 
