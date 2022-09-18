@@ -16,7 +16,7 @@ NB For validators, DONT FORGET to put your address in the lighthousevalidator.se
 
 2. Run the following `git clone https://github.com/WilsonBillkia/ethereum-node/`
 
-3. Download the latest Lighthouse exectuable from here https://github.com/sigp/lighthouse/releases and save it as lighthouse_exe under the files directory. 
+3. Download the latest Lighthouse executable from here https://github.com/sigp/lighthouse/releases and save it as lighthouse_exe under the files directory. 
 
 4. Run `cd ethereum-node && ansible-playbook geth_validator_build.yml`
 
