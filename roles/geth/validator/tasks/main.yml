@@ -129,7 +129,7 @@
 
   - name: copy current server side lighthouse executable to bin dir  
     ansible.builtin.copy:
-      src: "{{ lighthouse_gz }}"
+      src: "{{ lighthouse_exe }}"
       remote_src: no
       dest: '/usr/local/bin/lighthouse'
       owner: root
