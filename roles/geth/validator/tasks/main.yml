@@ -1,0 +1,161 @@
+---
+# This script should build ethereum nodes without validators, just comment out all the validator steps below
+#
+  - name: lighthousebeacon group present
+    ansible.builtin.group:
+      name: lighthousebeacon
+      state: present
+    become: yes
+ 
+  - name: goeth group present
+    ansible.builtin.group:
+      name: goeth
+      state: present
+    become: yes
+ 
+  - name: lighthousevalidator group present
+    ansible.builtin.group:
+      name: lighthousevalidator
+      state: present
+    become: yes
+ 
+  - name: goeth account present
+    ansible.builtin.user:
+      name: goeth
+      comment: acc for geth execution layer service
+      shell: "/bin/false"
+      create_home: no
+      group: goeth
+    become: yes
+
+  - name: lighthousebeacon account present
+    ansible.builtin.user:
+      name: lighthousebeacon
+      comment: acc for geth consensus layer service
+      shell: "/bin/false"
+      create_home: no
+      group: lighthousebeacon
+    become: yes
+
+  - name: lighthouse validator account present
+    ansible.builtin.user:
+      name: lighthousevalidator
+      comment: acc for lighthouse validator service
+      shell: "/bin/false"
+      create_home: no
+      group: lighthousevalidator
+    become: yes
+ 
+  - name: /var/lib/goethereum folder in place
+    ansible.builtin.file:
+      path: /var/lib/goethereum
+      state: directory
+      owner: goeth
+      group: goeth
+    become: yes
+
+  - name: /var/lib/lighthouse folder in place
+    ansible.builtin.file:
+      path: /var/lib/lighthouse
+      state: directory
+      owner: lighthousebeacon
+      group: lighthousebeacon
+    become: yes
+
+  - name: /var/lib/lighthouse/validators folder in place
+    ansible.builtin.file:
+      path: /var/lib/lighthouse/validators
+      state: directory
+      owner: lighthousevalidator
+      group: lighthousevalidator
+      mode: 0700
+    become: yes
+
+  - name: /var/lib/goethereum folder in place
+    ansible.builtin.file:
+      path: /var/lib/goethereum
+      state: directory
+      owner: goeth
+      group: goeth
+    become: yes
+
+  - name: /var/lib/ethereum folder in place
+    ansible.builtin.file:
+      path: /var/lib/ethereum
+      state: directory
+      owner: root
+    become: yes
+
+  - name: geth PPA - ppa:ethereum/ethereum added
+    ansible.builtin.apt_repository:
+      repo: ppa:ethereum/ethereum
+    become: true
+
+  - name: Latest geth and other packages installed from PPA
+    apt:
+      update_cache: yes  
+      pkg: 
+      - software-properties-common
+      - geth
+      - ccze
+    become: true
+
+  - name: copy lighthouse.service 
+    ansible.builtin.copy:
+      src: "{{ lighthouse_service }}"
+      remote_src: no
+      dest: '/etc/systemd/system/lighthousebeacon.service'
+      owner: root
+      mode: 0755
+    become: yes
+
+  - name: copy lighthousevalidator.service 
+    ansible.builtin.copy:
+      src: "{{ lighthouse_validator_service }}"
+      remote_src: no
+      dest: '/etc/systemd/system/lighthousevalidator.service'
+      owner: root
+      mode: 0755
+    become: yes
+
+  - name: copy geth.service 
+    ansible.builtin.copy:
+      src: "{{ geth_service }}"
+      remote_src: no
+      dest: '/etc/systemd/system/geth.service'
+      owner: root
+      mode: 0755
+    become: yes
+
+  - name: copy current server side lighthouse executable to bin dir  
+    ansible.builtin.copy:
+      src: "{{ lighthouse_gz }}"
+      remote_src: no
+      dest: '/usr/local/bin/lighthouse'
+      owner: root
+      mode: 0755
+    become: yes
+
+  - name: copy current server side staking cli executable  
+    ansible.builtin.unarchive:
+      src: "{{ staking_deposit_cli }}"
+      remote_src: no
+      dest: '/home/cia'
+      owner: cia
+    become: yes
+
+  - name: geth service enable
+    ansible.builtin.systemd:
+      name: geth.service
+      state: started
+      enabled: yes
+    become: yes
+
+  - name: lighthouse service enable
+    ansible.builtin.systemd:
+      name: lighthousebeacon.service
+      state: started
+      enabled: yes
+    become: yes
+
+...
