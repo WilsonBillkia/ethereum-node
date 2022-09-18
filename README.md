@@ -1,8 +1,8 @@
-# idempotent ansible ethereum-node
+# Ansible playbook for building ethereum nodes
 
 This is an ansible script which turns any suitably spec'ed linux box into either an execution/consensus geth node or a full validator node.
 
-This just copies  the steps published here https://github.com/remyroy/ethstaker/blob/main/merge-goerli-prater.md. Thanks to remy - an excellent guide!
+This just copies the steps published here https://github.com/remyroy/ethstaker/blob/main/merge-goerli-prater.md. Thanks to remy - an excellent guide!
 
 NB This is configured for goerli - for other networks change the flag in the geth.service file in this repo.
 
