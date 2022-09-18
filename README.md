@@ -4,6 +4,10 @@ This is just a compilation of the steps published by remy here https://github.co
 
 NB This is configured for goerli - for other networks change the flag in the geth.service file in this repo.
 
+NB Key generation must be performed using the cli tools 
+
+NB For validators, dont forget to put your address in the lighthousevalidator.service file where marked. 
+
 (This guide assumes you have ansible installed and are running the following steps from your management host) 
 
 1. Add the IP address of the host you want to build to your ansible inventory file (default: /etc/ansible/hosts) under a group named geth_node 
