@@ -136,13 +136,17 @@
       mode: 0755
     become: yes
 
-  - name: copy current server side staking cli executable  
-    ansible.builtin.unarchive:
-      src: "{{ staking_deposit_cli }}"
-      remote_src: no
-      dest: '/home/cia'
-      owner: cia
-    become: yes
+# Uncomment this play to copy the staking deposit cli tool to the host, alternately
+# you could run it on your ansible management host and scp the files across 
+# If you run it locally change the home folder below from cia to the username needed
+#
+#  - name: copy current server side staking cli executable  
+#    ansible.builtin.unarchive:
+#      src: "{{ staking_deposit_cli }}"
+#      remote_src: no
+#      dest: '/home/cia'
+#      owner: cia
+#    become: yes
 
   - name: geth service enable
     ansible.builtin.systemd:
