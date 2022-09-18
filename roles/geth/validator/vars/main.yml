@@ -1,0 +1,7 @@
+---
+
+lighthouse_service: ".files/etc/systemd/system/lighthousebeacon.service"
+lighthouse_validator_service: ".files/etc/systemd/system/lighthousevalidator.service"
+geth_service: ".files/etc/systemd/system/geth.service"
+
+...
