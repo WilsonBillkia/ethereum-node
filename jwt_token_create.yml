@@ -11,6 +11,6 @@
     become: yes
     
   - name: generate the JWT token in jwt_token_dir
-    ansible.builtin.shell: openssl rand -hex 32 | tr -d "\n" | sudo tee /var/lib/ethereum/jwttoken
+    shell: openssl rand -hex 32 | tr -d "\n" | sudo tee /var/lib/ethereum/jwttoken
 
 ...
