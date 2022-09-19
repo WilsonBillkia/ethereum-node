@@ -13,11 +13,13 @@ NB For validators, DONT FORGET to put your address in the lighthousevalidator.se
 
 1. Add the IP address or hostname of the host you want to build to your inventory file (default: /etc/ansible/hosts) under a new group named geth_nodes 
 
-2. Run the following `git clone https://github.com/WilsonBillkia/ethereum-node/`
+2. Put your payment address in the lighthousevalidator.service file
 
-3. Download the latest Lighthouse executable from here https://github.com/sigp/lighthouse/releases and save it as lighthouse_exe under the files directory. 
+3. Run the following `git clone https://github.com/WilsonBillkia/ethereum-node/`
 
-4. Run `ansible-playbook jwt_token_create.yml`
+4. Download the latest Lighthouse executable from here https://github.com/sigp/lighthouse/releases and save it as lighthouse_exe under the files directory. 
 
-5. Run `ansible-playbook geth_validator_build.yml` The playbook should perform all the steps necessary to install and enable the geth, beacon and validator services. (For non-validator nodes just leave out any steps which reference the validator from the main playbook.)
+5. Run `ansible-playbook jwt_token_create.yml`
+
+6. Run `ansible-playbook geth_validator_build.yml` The playbook should perform all the steps necessary to install and enable the geth, beacon and validator services. (For non-validator nodes just leave out any steps which reference the validator from the main playbook.)
 
