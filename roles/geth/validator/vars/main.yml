@@ -5,6 +5,7 @@ lighthouse_validator_service: ".files/etc/systemd/system/lighthousevalidator.ser
 geth_service: ".files/etc/systemd/system/geth.service"
 lighthouse_exe: ".files/lighthouse_exe"
 staking_deposit_cli: "/path/to/deposit_tool"
+jwt_token_dir: "/var/lib/ethereum/jwttoken"
 
 
 ...
