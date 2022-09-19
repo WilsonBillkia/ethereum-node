@@ -1,6 +1,16 @@
 ---
-- name: generate the JWT token in {{ jwt_token_dir }}
-  ansible.builtin.shell: openssl rand -hex 32 | tr -d "\n" | sudo tee /var/lib/ethereum/jwttoken
+- name: create the JWT token
+  hosts: geth_nodes
 
+  tasks:
+  - name: jwttoken folder in place
+    ansible.builtin.file:
+      path: /var/lib/ethereum/jwttoken
+      state: directory
+      mode: 0744
+    become: yes
+    
+  - name: generate the JWT token in jwt_token_dir
+    ansible.builtin.shell: openssl rand -hex 32 | tr -d "\n" | sudo tee /var/lib/ethereum/jwttoken
 
 ...
