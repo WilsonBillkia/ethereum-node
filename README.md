@@ -12,7 +12,7 @@ NB For validators, DONT FORGET to put your address in the lighthousevalidator.se
 
 # Instructions
 
-1. Add the IP address or hostname of the host you want to build to your inventory file (default: /etc/ansible/hosts) under a new group named geth_node 
+1. Add the IP address or hostname of the host you want to build to your inventory file (default: /etc/ansible/hosts) under a new group named geth_nodes 
 
 2. Run the following `git clone https://github.com/WilsonBillkia/ethereum-node/`
 
