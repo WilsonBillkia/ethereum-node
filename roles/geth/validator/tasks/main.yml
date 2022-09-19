@@ -54,6 +54,13 @@
       group: goeth
     become: yes
 
+  - name: {{ jwt_token_dir }} folder in place
+    ansible.builtin.file:
+      path: /var/lib/ethereum/jwttoken
+      state: directory
+      mode: 0744
+    become: yes
+
   - name: /var/lib/lighthouse folder in place
     ansible.builtin.file:
       path: /var/lib/lighthouse
