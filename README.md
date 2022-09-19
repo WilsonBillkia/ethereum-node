@@ -1,4 +1,4 @@
-# Ansible playbook for building ethereum geth/lighthouse nodes
+# Ansible playbook for building baremetal geth/lighthouse nodes
 
 
 This just copies the steps published here https://github.com/remyroy/ethstaker/blob/main/merge-goerli-prater.md. Thanks for an excellent guide!
