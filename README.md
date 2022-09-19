@@ -20,7 +20,5 @@ NB For validators, DONT FORGET to put your address in the lighthousevalidator.se
 
 4. Run `ansible-playbook jwt_token_create.yml`
 
-5. Run `ansible-playbook geth_validator_build.yml`
-
-The playbook should perform all the steps necessary to install and enable the geth, beacon and validator services. (For non-validator nodes just leave out any steps which reference the validator from the main playbook.)
+5. Run `ansible-playbook geth_validator_build.yml` The playbook should perform all the steps necessary to install and enable the geth, beacon and validator services. (For non-validator nodes just leave out any steps which reference the validator from the main playbook.)
 
