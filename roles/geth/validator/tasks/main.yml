@@ -145,7 +145,7 @@
 
 # Uncomment this play to copy the staking deposit cli tool to the host, alternately
 # you could run it on your ansible management host and scp the files across 
-# If you run it locally change the home folder below from cia to the username needed
+# If you run it change the dest: folder below to the needful
 #
 #  - name: copy current server side staking cli executable  
 #    ansible.builtin.unarchive:
@@ -165,6 +165,13 @@
   - name: lighthouse service enable
     ansible.builtin.systemd:
       name: lighthousebeacon.service
+      state: started
+      enabled: yes
+    become: yes
+
+  - name: lighthouse validator service enable
+    ansible.builtin.systemd:
+      name: lighthousevalidator.service
       state: started
       enabled: yes
     become: yes
