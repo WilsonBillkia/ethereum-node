@@ -13,7 +13,7 @@ NB For validators, DONT FORGET to put your address in the lighthousevalidator.se
 
 1. Add the IP address or hostname of the host you want to build to your inventory file (default: /etc/ansible/hosts) under a new group named geth_nodes 
 
-2. Put your payment address in the lighthousevalidator.service file
+2. Update --suggested-fee-recipient flag in the lighthousevalidator.service file with payment address for validator
 
 3. Run the following `git clone https://github.com/WilsonBillkia/ethereum-node/`
 
