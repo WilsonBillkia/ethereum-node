@@ -18,6 +18,9 @@ NB For validators, DONT FORGET to put your address in the lighthousevalidator.se
 
 3. Download the latest Lighthouse executable from here https://github.com/sigp/lighthouse/releases and save it as lighthouse_exe under the files directory. 
 
-4. In the ethereum-node directory run `ansible-playbook geth_validator_build.yml`
+4. Run `ansible-playbook jwt_token_create.yml`
+
+5. Run `ansible-playbook geth_validator_build.yml`
 
 The playbook should perform all the steps necessary to install and enable the geth, beacon and validator services. (For non-validator nodes just leave out any steps which reference the validator from the main playbook.)
+
