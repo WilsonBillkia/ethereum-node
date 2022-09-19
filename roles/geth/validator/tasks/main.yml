@@ -1,6 +1,8 @@
 ---
 # This script should build ethereum nodes without validators, just comment out all the validator steps below
 #
+# NB The directories below may be overly permissive - Author is unsure 
+#
   - name: lighthousebeacon group present
     ansible.builtin.group:
       name: lighthousebeacon
