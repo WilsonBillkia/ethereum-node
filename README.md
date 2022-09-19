@@ -1,8 +1,7 @@
 # Ansible playbook for building ethereum nodes
 
-This is an ansible script which turns any suitably spec'ed linux target into either an execution/consensus geth node or a full validator node.
 
-This just copies the steps published here https://github.com/remyroy/ethstaker/blob/main/merge-goerli-prater.md. Thanks to remy - an excellent guide!
+This just copies the steps published here https://github.com/remyroy/ethstaker/blob/main/merge-goerli-prater.md. Thanks for an excellent guide!
 
 NB This is configured for goerli - using the flag in the geth.service file in this repo.
 
