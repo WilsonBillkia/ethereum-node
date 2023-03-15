@@ -1,0 +1,11 @@
+---
+
+lighthouse_service: "etc/systemd/system/lighthousebeacon.service"
+lighthouse_validator_service: "etc/systemd/system/lighthousevalidator.service"
+geth_service: "etc/systemd/system/geth.service"
+lighthouse_exe: "lighthouse_exe"
+staking_deposit_cli: "/path/to/deposit_tool"
+jwt_token_dir: "/var/lib/ethereum/jwttoken"
+
+
+...
