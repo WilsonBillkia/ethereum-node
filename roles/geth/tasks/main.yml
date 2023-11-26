@@ -1,91 +1,42 @@
 ---
 # This script should build ethereum nodes without validators, just comment out all the validator steps below
-#
-# NB The directories below may be overly permissive - Author is unsure 
-#
-  - name: lighthousebeacon group present
+# 25 nov 2023 rehaul, replace existing serial tasks with loops.
+# NB the root group was added to stop ansible borking, original just provisioned a root acc, no group details
+
+
+
+  - name: groups present
     ansible.builtin.group:
-      name: lighthousebeacon
+      name: "{{ item }}"
       state: present
     become: yes
+    loop: 
+        - lighthousebeacon
+        - goeth
  
-  - name: goeth group present
-    ansible.builtin.group:
-      name: goeth
-      state: present
-    become: yes
- 
-  - name: lighthousevalidator group present
-    ansible.builtin.group:
-      name: lighthousevalidator
-      state: present
-    become: yes
- 
-  - name: goeth account present
+  - name: accounts present
     ansible.builtin.user:
-      name: goeth
-      comment: acc for geth execution layer service
-      shell: "/bin/false"
-      create_home: no
-      group: goeth
+      name: "{{ item.name }}"
+      groups: "{{ item.groups }}"
+      comment: "{{ item.comment }}"
+            #      shell: "/bin/false"
+            #    create_home: no
+    loop:
+        - { name: 'goeth', groups: 'goeth', comment: 'acc for geth exe layer'}
+        - { name: 'lighthousebeacon', groups: 'lighthousebeacon', comment: 'acc for lighthouse validator service' }
     become: yes
 
-  - name: lighthousebeacon account present
-    ansible.builtin.user:
-      name: lighthousebeacon
-      comment: acc for geth consensus layer service
-      shell: "/bin/false"
-      create_home: no
-      group: lighthousebeacon
-    become: yes
-
-  - name: lighthouse validator account present
-    ansible.builtin.user:
-      name: lighthousevalidator
-      comment: acc for lighthouse validator service
-      shell: "/bin/false"
-      create_home: no
-      group: lighthousevalidator
-    become: yes
- 
-  - name: /var/lib/goethereum folder in place
+  - name: check folders in place, create if needed
     ansible.builtin.file:
-      path: /var/lib/goethereum
+      path: "{{ item.path }}"
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
       state: directory
-      owner: goeth
-      group: goeth
-    become: yes
-
-  - name: /var/lib/lighthouse folder in place
-    ansible.builtin.file:
-      path: /var/lib/lighthouse
-      state: directory
-      owner: lighthousebeacon
-      group: lighthousebeacon
-    become: yes
-
-  - name: /var/lib/lighthouse/validators folder in place
-    ansible.builtin.file:
-      path: /var/lib/lighthouse/validators
-      state: directory
-      owner: lighthousevalidator
-      group: lighthousevalidator
-      mode: 0700
-    become: yes
-
-  - name: /var/lib/goethereum folder in place
-    ansible.builtin.file:
-      path: /var/lib/goethereum
-      state: directory
-      owner: goeth
-      group: goeth
-    become: yes
-
-  - name: /var/lib/ethereum folder in place
-    ansible.builtin.file:
-      path: /var/lib/ethereum
-      state: directory
-      owner: root
+    loop:      
+      - { path: '/var/lib/goethereum', owner: 'goeth', group: 'goeth', state: directory }
+      - { path: '/var/lib/lighthouse', owner: 'lighthousebeacon', group: 'lighthousebeacon', state: 'directory' }
+      - { path: '/var/lib/lighthouse/validators', owner: 'lighthousevalidator', state: 'directory' ,group: 'lighthousevalidator', mode: '0700' }
+      - { path: '/var/lib/ethereum', owner: 'root', group: 'root', state: directory }
     become: yes
 
   - name: geth PPA - ppa:ethereum/ethereum added
