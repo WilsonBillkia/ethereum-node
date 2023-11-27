@@ -21,7 +21,8 @@ NB For validators, DONT FORGET to put your address in the lighthousevalidator.se
 
 5. Run `ansible-playbook jwt_token_create.yml` to generate a jwt token and copy it to a world readable location
 
-6. Run `ansible-playbook geth_validator_build.yml` The playbook should perform all the steps necessary to install and enable the geth, beacon and validator services.
+6. When ready to move the staking and lighthouse executables to any hosts just use the new playbooks for each and they will transfer across.
 
-7. When ready to move the staking and lighthouse executables to any hosts just use the new playbooks for each and they will transfer across.
+7. Run `ansible-playbook geth_validator_build.yml` The playbook should perform all the steps necessary to install and enable the geth, beacon and validator services.
+
 
