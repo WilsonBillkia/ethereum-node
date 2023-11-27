@@ -17,9 +17,11 @@ NB For validators, DONT FORGET to put your address in the lighthousevalidator.se
 
 3. Run the following `git clone https://github.com/WilsonBillkia/ethereum-node/`
 
-4. Download the latest Lighthouse executable from here https://github.com/sigp/lighthouse/releases and save it as lighthouse_exe under the files directory. 
+4. Download the latest Lighthouse executable from here https://github.com/sigp/lighthouse/releases and save it as lighthouse under the files directory. 
 
 5. Run `ansible-playbook jwt_token_create.yml` to generate a jwt token and copy it to a world readable location
 
-6. Run `ansible-playbook geth_validator_build.yml` The playbook should perform all the steps necessary to install and enable the geth, beacon and validator services. (For non-validator nodes just leave out any steps which reference the validator from the main playbook.)
+6. Run `ansible-playbook geth_validator_build.yml` The playbook should perform all the steps necessary to install and enable the geth, beacon and validator services.
+
+7. When tou are ready to move the staking and lighthouse executables to any hosts just use the new playbooks for each and they will transfer across.
 
