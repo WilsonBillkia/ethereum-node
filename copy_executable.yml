@@ -1,0 +1,18 @@
+---
+- name: copy server side lighthouse exe to bin dir
+  hosts:
+    geth_nodes
+
+  vars:
+    lighthouse_exe: "/path/to/lighthouseexeifile"       
+  tasks:
+#  - uncomment to automate this step, otherwise this typically manual procedure now has its own command  
+  - name: copy current server side lighthouse executable to bin dir  
+    ansible.builtin.copy:
+      src: "{{ lighthouse_exe }}"
+      remote_src: no
+      dest: '/usr/local/bin/lighthouse'
+      owner: root
+      mode: 0755
+    become: yes
+...

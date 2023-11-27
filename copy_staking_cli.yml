@@ -1,0 +1,17 @@
+---
+- name: copy server side lighthouse exe to bin dir
+  hosts:
+    geth_nodes
+
+  vars:
+    staking_deposit_cli: "/path/to/stakingdepositcli"     
+
+  tasks:
+    - name: copy current server side staking cli executable  
+      ansible.builtin.unarchive:
+        src: "{{ staking_deposit_cli }}"
+        remote_src: no
+        dest: '/home/cia'
+        owner: cia
+      become: yes
+...

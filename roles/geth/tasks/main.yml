@@ -1,9 +1,5 @@
 ---
-# This script should build ethereum nodes without validators, just comment out all the validator steps below
 # 25 nov 2023 rehaul, replace existing serial tasks with loops.
-# NB the root group was added to stop ansible borking, original just provisioned a root acc, no group details
-
-
 
   - name: groups present
     ansible.builtin.group:
@@ -14,13 +10,14 @@
         - lighthousebeacon
         - goeth
  
+# NB the root group was added to stop ansible borking, original just provisioned a root acc, no group details
   - name: accounts present
     ansible.builtin.user:
       name: "{{ item.name }}"
       groups: "{{ item.groups }}"
       comment: "{{ item.comment }}"
-            #      shell: "/bin/false"
-            #    create_home: no
+      shell: "/bin/false"
+      create_home: no
     loop:
         - { name: 'goeth', groups: 'goeth', comment: 'acc for geth exe layer'}
         - { name: 'lighthousebeacon', groups: 'lighthousebeacon', comment: 'acc for lighthouse validator service' }
@@ -53,41 +50,28 @@
       - ccze
     become: true
 
-  - name: copy lighthouse.service 
+  - name: copy services
     ansible.builtin.copy:
-      src: "{{ lighthouse_service }}"
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
       remote_src: no
-      dest: '/etc/systemd/system/lighthousebeacon.service'
       owner: root
       mode: 0755
     become: yes
+    loop: 
+        - { src: '{{ lighthouse_service }}', dest: '/etc/systemd/system/lighthousevalidator.service' }
+        - { src: '{{ lighthouse_validator_service }}', dest: '/etc/systemd/system/lighthousevalidator.service' }
+        - { src: '{{ geth_service }}', dest: '/etc/systemd/system/geth.service' }
 
-  - name: copy lighthousevalidator.service 
-    ansible.builtin.copy:
-      src: "{{ lighthouse_validator_service }}"
-      remote_src: no
-      dest: '/etc/systemd/system/lighthousevalidator.service'
-      owner: root
-      mode: 0755
-    become: yes
-
-  - name: copy geth.service 
-    ansible.builtin.copy:
-      src: "{{ geth_service }}"
-      remote_src: no
-      dest: '/etc/systemd/system/geth.service'
-      owner: root
-      mode: 0755
-    become: yes
-
-  - name: copy current server side lighthouse executable to bin dir  
-    ansible.builtin.copy:
-      src: "{{ lighthouse_exe }}"
-      remote_src: no
-      dest: '/usr/local/bin/lighthouse'
-      owner: root
-      mode: 0755
-    become: yes
+#  - uncomment to automate this step, otherwise this typically manual procedure now has its own command  
+#  - name: copy current server side lighthouse executable to bin dir  
+#    ansible.builtin.copy:
+#      src: "{{ lighthouse_exe }}"
+#      remote_src: no
+#      dest: '/usr/local/bin/lighthouse'
+#      owner: root
+#      mode: 0755
+#    become: yes
 
 # Uncomment this play to copy the staking deposit cli tool to the host, alternately
 # you could run it on your ansible management host and scp the files across 
@@ -101,25 +85,14 @@
 #      owner: cia
 #    become: yes
 
-  - name: geth service enable
+  - name: enable services
     ansible.builtin.systemd:
-      name: geth.service
+      name: "{{ item }}"
       state: started
       enabled: yes
     become: yes
-
-  - name: lighthouse service enable
-    ansible.builtin.systemd:
-      name: lighthousebeacon.service
-      state: started
-      enabled: yes
-    become: yes
-
-  - name: lighthouse validator service enable
-    ansible.builtin.systemd:
-      name: lighthousevalidator.service
-      state: started
-      enabled: yes
-    become: yes
-
+    loop: 
+      - geth.service
+      - lighthousebeacon.service
+      - lighthousevalidator.service
 ...
