@@ -1,6 +1,6 @@
 ---
 - name: create the JWT token
-  hosts: geth_nodes
+  hosts: geth
 
   tasks:
   - name: jwttoken folder in place
@@ -10,7 +10,6 @@
       mode: 0744
     become: yes
     
-  - name: generate the JWT token in jwt_token_dir
+  - name: generate the JWT token in jwt token dir
     shell: openssl rand -hex 32 | tr -d "\n" | sudo tee /var/lib/ethereum/jwttoken
-
 ...

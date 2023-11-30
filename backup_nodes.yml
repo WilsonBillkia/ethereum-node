@@ -1,0 +1,30 @@
+---
+
+- name: backup nodes to management host
+  hosts:
+    geth
+  vars:
+    geth_ops_dir: "~/geth_ops"
+  tasks:
+    
+          #  - name: generate the toml using geth command at shell
+          #    shell: geth --{{ eth_chain_id }} dumpconfig > geth_{{ eth_chain_id }}_config.toml
+
+  - name: fetch TOML config back to management host
+    ansible.builtin.fetch:
+      src: "/home/{{ ansible_user }}/geth_{{ eth_chain_id }}_config.toml"
+      dest: "~/geth_ops"
+
+  - name: fetch JWT token back to management host
+    ansible.builtin.fetch:
+      src: "/var/lib/ethereum/jwttoken"
+      dest: "~/geth_ops"
+
+  - name: fetch secret keys back
+    ansible.builtin.copy:
+      src: "/home/{{ ansible_user }}/.ethereum/{{ eth_chain_id }}/keystore"
+      dest: "~/geth_ops"
+      remote_src: yes
+    become: yes
+
+...

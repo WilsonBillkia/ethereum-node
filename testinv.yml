@@ -1,0 +1,17 @@
+---
+geth_nodes:
+
+# some example vars to apply to your inventory           
+vars:
+  lighthouse_exe: "lighthouse"
+  lighthouse_archive: "lighthouse_archive.gz"       
+  lighthouse_dir: "/usr/local/bin/"       
+  staking_deposit_cli: "/path/to/stakingdepositcli"     
+  geth_service: "geth.service"
+  lighthouse_service: "lighthousebeacon.service"
+  lighthouse_validator_service: "lighthousevalidator.service"
+  eth_chain_id: "goerli"  
+
+hosts:
+#    192.168.1.x
+...

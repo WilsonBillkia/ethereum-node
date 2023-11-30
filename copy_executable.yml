@@ -1,18 +1,39 @@
 ---
+
 - name: copy server side lighthouse exe to bin dir
   hosts:
-    geth_nodes
-
+    geth
   vars:
-    lighthouse_exe: "/path/to/lighthouseexeifile"       
+    lighthouse_archive: "lighthouse_archive.gz"       
+    lighthouse_dir: "/usr/local/bin/"       
   tasks:
-#  - uncomment to automate this step, otherwise this typically manual procedure now has its own command  
-  - name: copy current server side lighthouse executable to bin dir  
-    ansible.builtin.copy:
-      src: "{{ lighthouse_exe }}"
-      remote_src: no
-      dest: '/usr/local/bin/lighthouse'
+
+  - name: disable services
+    ansible.builtin.systemd:
+      name: "{{ item }}"
+      state: stopped
+    become: yes
+    loop: 
+#      - geth.service
+      - lighthousebeacon.service
+#      - lighthousevalidator.service
+
+  - name: copy current server side lighthouse archive from {{ lighthouse_archive }} to {{ lighthouse_exe }} geth hosts  
+    ansible.builtin.unarchive:
+      src: "{{ lighthouse_archive }}"
+      dest: "{{ lighthouse_dir }}"
       owner: root
       mode: 0755
     become: yes
+
+  - name: reenable services
+    ansible.builtin.systemd:
+      name: "{{ item }}"
+      state: started
+    become: yes
+    loop: 
+#      - geth.service
+      - lighthousebeacon.service
+#     - lighthousevalidator.service
+
 ...

@@ -63,28 +63,6 @@
         - { src: '{{ lighthouse_validator_service }}', dest: '/etc/systemd/system/lighthousevalidator.service' }
         - { src: '{{ geth_service }}', dest: '/etc/systemd/system/geth.service' }
 
-#  - uncomment to automate this step, otherwise this typically manual procedure now has its own command  
-#  - name: copy current server side lighthouse executable to bin dir  
-#    ansible.builtin.copy:
-#      src: "{{ lighthouse_exe }}"
-#      remote_src: no
-#      dest: '/usr/local/bin/lighthouse'
-#      owner: root
-#      mode: 0755
-#    become: yes
-
-# Uncomment this play to copy the staking deposit cli tool to the host, alternately
-# you could run it on your ansible management host and scp the files across 
-# If you run it change the dest: folder below to the needful
-#
-#  - name: copy current server side staking cli executable  
-#    ansible.builtin.unarchive:
-#      src: "{{ staking_deposit_cli }}"
-#      remote_src: no
-#      dest: '/home/cia'
-#      owner: cia
-#    become: yes
-
   - name: enable services
     ansible.builtin.systemd:
       name: "{{ item }}"
