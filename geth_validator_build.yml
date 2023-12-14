@@ -1,6 +1,6 @@
 ---
 # This role is idempotent / the script can be run to maintain or check system state
-- hosts: geth_nodes
+- hosts: geth
   roles: 
     - geth
 ...
